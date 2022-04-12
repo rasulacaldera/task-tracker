@@ -22,6 +22,6 @@ public class DeveloperServiceImpl implements DeveloperService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
 
         DeveloperEntity developerEntity = modelMapper.map(developer, DeveloperEntity.class);
-        return modelMapper.map(developerRepository.save(developerEntity), DeveloperDto.class); //todo ID mapper
+        return modelMapper.map(developerRepository.save(developerEntity), DeveloperDto.class);
     }
 }
