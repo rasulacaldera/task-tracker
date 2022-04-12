@@ -5,12 +5,10 @@ import egroup.ag.tasktracker.dto.DeveloperDto;
 import egroup.ag.tasktracker.service.DeveloperService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/developer")
@@ -28,5 +26,14 @@ public class DeveloperController {
         DeveloperDto responseDeveloper = developerService.createDeveloper(developer);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDeveloper);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DeveloperDto>> getAllDevelopers() {
+        List<DeveloperDto> developers = developerService.getAllDevelopers();
+        if (developers.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(developers);
     }
 }
