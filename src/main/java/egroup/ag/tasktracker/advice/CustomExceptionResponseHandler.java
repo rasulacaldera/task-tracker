@@ -12,32 +12,6 @@ public class CustomExceptionResponseHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomExceptionResponseHandler.class);
 
-//    @ExceptionHandler({InvalidUserInputException.class})
-//    public ResponseEntity<Object> handleInvalidUserException(InvalidUserInputException ex) {
-//        if (ex.getError() != null) {
-//            LOG.info("Invalid User Input - {} - {}", ex.getError().getCode(), ex.getError().getMessage());
-//        } else {
-//            LOG.warn("Error not specified");
-//        }
-//        return new ResponseEntity<>(CustomResponse.builder()
-//                .status(ResponseStatus.ERROR)
-//                .error(ex.getError()).build(),
-//                HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler({ServiceFlowException.class})
-//    public ResponseEntity<Object> handleInvalidUserException(ServiceFlowException ex) {
-//        if (ex.getError() != null) {
-//            LOG.info("Error during service flow - {}", ex.getError());
-//        } else {
-//            LOG.warn("Error not specified");
-//        }
-//        return new ResponseEntity<>(CustomResponse.builder()
-//                .status(ResponseStatus.ERROR)
-//                .data(ex.getError()).build(),
-//                HttpStatus.BAD_REQUEST);
-//    }
-
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.info("Unexpected error - {}", ex.getMessage());
