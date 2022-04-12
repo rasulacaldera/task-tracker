@@ -5,5 +5,5 @@ import egroup.ag.tasktracker.dto.DeveloperDto;
 
 public interface DeveloperService {
 
-    public DeveloperDto createDeveloper(CreateDeveloperModel developer);
+    DeveloperDto createDeveloper(CreateDeveloperModel developer);
 }

@@ -3,7 +3,6 @@ package egroup.ag.tasktracker.controller;
 import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
 import egroup.ag.tasktracker.service.DeveloperService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,11 @@ import javax.validation.Valid;
 @RequestMapping("/developer")
 public class DeveloperController {
 
-    @Autowired
-    private DeveloperService developerService;
+    private final DeveloperService developerService;
+
+    public DeveloperController(DeveloperService developerService) {
+        this.developerService = developerService;
+    }
 
     @PostMapping
     public ResponseEntity<DeveloperDto> createDeveloper(@Valid @RequestBody CreateDeveloperModel developer) {

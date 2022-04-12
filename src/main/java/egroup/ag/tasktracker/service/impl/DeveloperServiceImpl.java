@@ -7,14 +7,16 @@ import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.DeveloperService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
 
-    @Autowired
-    DeveloperRepository developerRepository;
+    private final DeveloperRepository developerRepository;
+
+    public DeveloperServiceImpl(DeveloperRepository developerRepository) {
+        this.developerRepository = developerRepository;
+    }
 
     @Override
     public DeveloperDto createDeveloper(CreateDeveloperModel developer) {
