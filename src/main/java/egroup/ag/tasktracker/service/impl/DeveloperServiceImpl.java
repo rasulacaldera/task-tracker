@@ -1,9 +1,10 @@
-package egroup.ag.tasktracker.service;
+package egroup.ag.tasktracker.service.impl;
 
 import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
+import egroup.ag.tasktracker.service.DeveloperService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
