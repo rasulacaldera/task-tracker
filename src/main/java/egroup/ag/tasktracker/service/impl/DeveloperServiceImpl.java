@@ -48,4 +48,9 @@ public class DeveloperServiceImpl implements DeveloperService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         return modelMapper.map(developerRepository.findById(id), DeveloperDto.class);
     }
+
+    @Override
+    public void deleteDeveloperById(long id) {
+        developerRepository.deleteById(id);
+    }
 }

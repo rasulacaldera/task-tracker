@@ -46,4 +46,10 @@ public class DeveloperController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDeveloper);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteDeveloperById(@PathVariable Long id) {
+        developerService.deleteDeveloperById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
 }

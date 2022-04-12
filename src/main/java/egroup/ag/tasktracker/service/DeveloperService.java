@@ -12,4 +12,6 @@ public interface DeveloperService {
     List<DeveloperDto> getAllDevelopers();
 
     DeveloperDto getDeveloperById(long id);
+
+    void deleteDeveloperById(long id);
 }
