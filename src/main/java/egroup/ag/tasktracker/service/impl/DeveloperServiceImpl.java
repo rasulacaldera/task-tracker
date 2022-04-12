@@ -41,4 +41,11 @@ public class DeveloperServiceImpl implements DeveloperService {
         }.getType();
         return modelMapper.map(developerRepository.findAll(), listType);
     }
+
+    @Override
+    public DeveloperDto getDeveloperById(long id) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+        return modelMapper.map(developerRepository.findById(id), DeveloperDto.class);
+    }
 }

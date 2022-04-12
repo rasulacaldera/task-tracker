@@ -36,4 +36,14 @@ public class DeveloperController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(developers);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DeveloperDto> getDeveloperById(@PathVariable Long id) {
+
+        DeveloperDto responseDeveloper = developerService.getDeveloperById(id);
+        if (responseDeveloper == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDeveloper);
+    }
 }

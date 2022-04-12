@@ -10,4 +10,6 @@ public interface DeveloperService {
     DeveloperDto createDeveloper(CreateDeveloperModel developer);
 
     List<DeveloperDto> getAllDevelopers();
+
+    DeveloperDto getDeveloperById(long id);
 }
