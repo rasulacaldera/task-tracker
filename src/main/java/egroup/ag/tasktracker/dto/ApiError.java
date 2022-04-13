@@ -1,10 +1,8 @@
 package egroup.ag.tasktracker.dto;
 
 import egroup.ag.tasktracker.constants.ErrorMessage;
-import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class ApiError {
 
