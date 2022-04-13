@@ -14,4 +14,6 @@ public interface DeveloperService {
     DeveloperDto getDeveloperById(long id);
 
     void deleteDeveloperById(long id);
+
+    DeveloperDto updateDeveloperById(long id, CreateDeveloperModel developer);
 }

@@ -47,6 +47,17 @@ public class DeveloperController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDeveloper);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<DeveloperDto> updateDeveloper(@PathVariable(required = true) Long id,
+                                                        @Valid @RequestBody CreateDeveloperModel developer) {
+        DeveloperDto responseDeveloper = developerService.updateDeveloperById(id, developer);
+
+        if (responseDeveloper == null) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(responseDeveloper);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteDeveloperById(@PathVariable Long id) {
         developerService.deleteDeveloperById(id);

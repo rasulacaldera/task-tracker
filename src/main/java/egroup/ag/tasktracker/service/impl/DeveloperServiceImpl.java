@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
@@ -50,7 +51,23 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public DeveloperDto updateDeveloperById(long id, CreateDeveloperModel developer) {
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+
+        Optional<DeveloperEntity> developerEntity = developerRepository.findById(id);
+
+        if (developerEntity.isPresent()) {
+            developerEntity.get().setName(developer.getName());
+            return modelMapper.map(developerRepository.save(developerEntity.get()), DeveloperDto.class);
+        }
+
+        return null;
+    }
+
+    @Override
     public void deleteDeveloperById(long id) {
         developerRepository.deleteById(id);
     }
+
 }
