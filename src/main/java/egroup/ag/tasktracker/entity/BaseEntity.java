@@ -14,14 +14,4 @@ public class BaseEntity implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-
-//    @CreationTimestamp
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "create_date")
-//    private Date createdDate;
-//
-//    @UpdateTimestamp
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "modify_date")
-//    private Date modifiedDate;
 }
