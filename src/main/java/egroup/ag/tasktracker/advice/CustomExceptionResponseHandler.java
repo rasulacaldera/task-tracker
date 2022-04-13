@@ -20,7 +20,7 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
 
     @ExceptionHandler({InvalidUserInputException.class})
     public ResponseEntity<Object> handleInvalidUserInputException(InvalidUserInputException ex) {
-        LOG.info("Unexpected error - {}, {}", ex.getError().getCode(), ex.getError().getMessage());
+        LOG.info("User input error - {}, {}", ex.getError().getCode(), ex.getError().getMessage());
         return new ResponseEntity<>(ex.getError(),
                 HttpStatus.BAD_REQUEST);
     }

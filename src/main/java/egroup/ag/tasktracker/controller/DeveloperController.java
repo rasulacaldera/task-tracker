@@ -41,9 +41,6 @@ public class DeveloperController {
     public ResponseEntity<DeveloperDto> getDeveloperById(@PathVariable Long id) {
 
         DeveloperDto responseDeveloper = developerService.getDeveloperById(id);
-        if (responseDeveloper == null) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDeveloper);
     }
 
@@ -51,10 +48,6 @@ public class DeveloperController {
     public ResponseEntity<DeveloperDto> updateDeveloper(@PathVariable(required = true) Long id,
                                                         @Valid @RequestBody CreateDeveloperModel developer) {
         DeveloperDto responseDeveloper = developerService.updateDeveloperById(id, developer);
-
-        if (responseDeveloper == null) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-        }
         return ResponseEntity.status(HttpStatus.OK).body(responseDeveloper);
     }
 

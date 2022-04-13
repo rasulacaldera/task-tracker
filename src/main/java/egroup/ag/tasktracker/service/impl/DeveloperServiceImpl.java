@@ -50,7 +50,14 @@ public class DeveloperServiceImpl implements DeveloperService {
     public DeveloperDto getDeveloperById(long id) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
-        return modelMapper.map(developerRepository.findById(id), DeveloperDto.class);
+        DeveloperDto developerDto = modelMapper.map(developerRepository.findById(id), DeveloperDto.class);
+        if (developerDto == null) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
+                    ).build();
+        }
+        return developerDto;
     }
 
     @Override
@@ -73,6 +80,13 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public void deleteDeveloperById(long id) {
+        Optional<DeveloperEntity> developerEntity = developerRepository.findById(id);
+        if (developerEntity.isEmpty()) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
+                    ).build();
+        }
         developerRepository.deleteById(id);
     }
 
