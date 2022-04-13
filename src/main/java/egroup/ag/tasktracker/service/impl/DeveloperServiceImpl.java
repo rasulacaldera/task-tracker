@@ -64,18 +64,16 @@ public class DeveloperServiceImpl implements DeveloperService {
     public DeveloperDto updateDeveloperById(long id, DeveloperRequestModel developer) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
-
         Optional<DeveloperEntity> developerEntity = developerRepository.findById(id);
 
-        if (developerEntity.isPresent()) {
-            developerEntity.get().setName(developer.getName());
-            return modelMapper.map(developerRepository.save(developerEntity.get()), DeveloperDto.class);
+        if (developerEntity.isEmpty()) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
+                    ).build();
         }
-
-        throw InvalidUserInputException
-                .builder()
-                .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
-                ).build();
+        developerEntity.get().setName(developer.getName());
+        return modelMapper.map(developerRepository.save(developerEntity.get()), DeveloperDto.class);
     }
 
     @Override

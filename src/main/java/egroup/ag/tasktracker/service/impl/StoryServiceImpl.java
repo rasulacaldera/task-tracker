@@ -79,11 +79,29 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryDto updateStoryById(long id, StoryRequestModel story) {
-        return null;
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+        Optional<StoryEntity> storyEntity = storyRepository.findById(id);
+
+        if (storyEntity.isEmpty()) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
+                    ).build();
+        }
+//        storyEntity.get().setName(developer.getName());
+        return modelMapper.map(storyRepository.save(storyEntity.get()), StoryDto.class);
     }
 
     @Override
     public void deleteStoryById(long id) {
-
+        Optional<StoryEntity> storyEntity = storyRepository.findById(id);
+        if (storyEntity.isEmpty()) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
+                    ).build();
+        }
+        storyRepository.deleteById(id);
     }
 }
