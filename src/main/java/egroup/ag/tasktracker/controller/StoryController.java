@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/story")
+@RequestMapping("/v1/story")
 public class StoryController {
 
     private final StoryService storyService;

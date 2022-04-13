@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/developer")
+@RequestMapping("/v1/developer")
 public class DeveloperController {
 
     private final DeveloperService developerService;

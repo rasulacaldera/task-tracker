@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bug")
+@RequestMapping("/v1/bug")
 public class BugController {
 
     private final BugService bugService;
