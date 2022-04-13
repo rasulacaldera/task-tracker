@@ -16,8 +16,4 @@ public class ApiError {
         this.message = String.format(errorMessage.getMessage(), args);
     }
 
-    public ApiError(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 }

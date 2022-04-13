@@ -28,9 +28,7 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.info("Unexpected error - {}", ex.getMessage());
-        return new ResponseEntity<>(ApiError.builder()
-                .code(ErrorMessage.UNHANDLED_EXCEPTION.getCode())
-                .message(ErrorMessage.UNHANDLED_EXCEPTION.getMessage()),
+        return new ResponseEntity<>(new ApiError(ErrorMessage.UNHANDLED_EXCEPTION),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
