@@ -11,7 +11,7 @@ import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.BugRepository;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.BugService;
-import egroup.ag.tasktracker.utils.UpdateUtil;
+import egroup.ag.tasktracker.utils.BeanUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -101,7 +101,7 @@ public class BugServiceImpl implements BugService {
             bugEntity.get().setAssignedDeveloper(developerDto.get());
         }
 
-        UpdateUtil.copyNullProperties(bug, bugEntity.get());
+        BeanUtil.copyIgnoringNullProperties(bug, bugEntity.get());
         return modelMapper.map(bugRepository.save(bugEntity.get()), BugDto.class);
     }
 

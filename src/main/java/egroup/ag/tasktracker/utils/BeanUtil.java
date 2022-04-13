@@ -9,9 +9,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class UpdateUtil {
+public class BeanUtil {
 
-    public static void copyNullProperties(Object source, Object target) {
+    public static void copyIgnoringNullProperties(Object source, Object target) {
         BeanUtils.copyProperties(source, target, getNullField(source));
     }
 
