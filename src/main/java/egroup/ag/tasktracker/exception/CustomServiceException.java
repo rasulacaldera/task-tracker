@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class InvalidUserInputException extends RuntimeException {
+public class CustomServiceException extends RuntimeException {
     private final transient ApiError error;
 }

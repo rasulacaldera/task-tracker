@@ -7,7 +7,7 @@ import egroup.ag.tasktracker.dto.BugDto;
 import egroup.ag.tasktracker.dto.BugRequestModel;
 import egroup.ag.tasktracker.entity.BugEntity;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
-import egroup.ag.tasktracker.exception.InvalidUserInputException;
+import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.BugRepository;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.BugService;
@@ -41,7 +41,7 @@ public class BugServiceImpl implements BugService {
         if (bug.getAssignedDeveloperId() != null) {
             Optional<DeveloperEntity> developerEntity = developerRepository.findById(bug.getAssignedDeveloperId());
             if (developerEntity.isEmpty()) {
-                throw InvalidUserInputException
+                throw CustomServiceException
                         .builder()
                         .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND,
                                 String.valueOf(bug.getAssignedDeveloperId()))
@@ -68,7 +68,7 @@ public class BugServiceImpl implements BugService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         BugDto bug = modelMapper.map(bugRepository.findById(id), BugDto.class);
         if (bug == null) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.BUG_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -83,7 +83,7 @@ public class BugServiceImpl implements BugService {
         Optional<BugEntity> bugEntity = bugRepository.findById(id);
 
         if (bugEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.BUG_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -96,7 +96,7 @@ public class BugServiceImpl implements BugService {
     public void deleteBugById(long id) {
         Optional<BugEntity> bugEntity = bugRepository.findById(id);
         if (bugEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.BUG_NOT_FOUND, String.valueOf(id))
                     ).build();

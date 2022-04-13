@@ -7,7 +7,7 @@ import egroup.ag.tasktracker.dto.StoryDto;
 import egroup.ag.tasktracker.dto.StoryRequestModel;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
 import egroup.ag.tasktracker.entity.StoryEntity;
-import egroup.ag.tasktracker.exception.InvalidUserInputException;
+import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.repository.StoryRepository;
 import egroup.ag.tasktracker.service.StoryService;
@@ -42,7 +42,7 @@ public class StoryServiceImpl implements StoryService {
         if (story.getAssignedDeveloperId() != null) {
             Optional<DeveloperEntity> developerEntity = developerRepository.findById(story.getAssignedDeveloperId());
             if (developerEntity.isEmpty()) {
-                throw InvalidUserInputException
+                throw CustomServiceException
                         .builder()
                         .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND,
                                 String.valueOf(story.getAssignedDeveloperId()))
@@ -69,7 +69,7 @@ public class StoryServiceImpl implements StoryService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         StoryDto bug = modelMapper.map(storyRepository.findById(id), StoryDto.class);
         if (bug == null) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -84,7 +84,7 @@ public class StoryServiceImpl implements StoryService {
         Optional<StoryEntity> storyEntity = storyRepository.findById(id);
 
         if (storyEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -97,7 +97,7 @@ public class StoryServiceImpl implements StoryService {
     public void deleteStoryById(long id) {
         Optional<StoryEntity> storyEntity = storyRepository.findById(id);
         if (storyEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
                     ).build();

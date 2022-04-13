@@ -5,7 +5,7 @@ import egroup.ag.tasktracker.dto.ApiError;
 import egroup.ag.tasktracker.dto.DeveloperDto;
 import egroup.ag.tasktracker.dto.DeveloperRequestModel;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
-import egroup.ag.tasktracker.exception.InvalidUserInputException;
+import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.DeveloperService;
 import org.modelmapper.ModelMapper;
@@ -52,7 +52,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
         DeveloperDto developerDto = modelMapper.map(developerRepository.findById(id), DeveloperDto.class);
         if (developerDto == null) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -67,7 +67,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         Optional<DeveloperEntity> developerEntity = developerRepository.findById(id);
 
         if (developerEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
                     ).build();
@@ -80,7 +80,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     public void deleteDeveloperById(long id) {
         Optional<DeveloperEntity> developerEntity = developerRepository.findById(id);
         if (developerEntity.isEmpty()) {
-            throw InvalidUserInputException
+            throw CustomServiceException
                     .builder()
                     .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
                     ).build();

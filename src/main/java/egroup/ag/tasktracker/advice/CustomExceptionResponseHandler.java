@@ -2,7 +2,7 @@ package egroup.ag.tasktracker.advice;
 
 import egroup.ag.tasktracker.constants.ErrorMessage;
 import egroup.ag.tasktracker.dto.ApiError;
-import egroup.ag.tasktracker.exception.InvalidUserInputException;
+import egroup.ag.tasktracker.exception.CustomServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomExceptionResponseHandler.class);
 
-    @ExceptionHandler({InvalidUserInputException.class})
-    public ResponseEntity<Object> handleInvalidUserInputException(InvalidUserInputException ex) {
+    @ExceptionHandler({CustomServiceException.class})
+    public ResponseEntity<Object> handleCustomServiceException(CustomServiceException ex) {
         LOG.info("User input error - {}, {}", ex.getError().getCode(), ex.getError().getMessage());
         return new ResponseEntity<>(ex.getError(),
                 HttpStatus.BAD_REQUEST);
