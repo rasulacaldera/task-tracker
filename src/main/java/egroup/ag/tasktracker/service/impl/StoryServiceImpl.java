@@ -12,9 +12,11 @@ import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.repository.StoryRepository;
 import egroup.ag.tasktracker.service.StoryService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +55,12 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public List<StoryDto> getAllStories() {
-        return null;
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+
+        Type listType = new TypeToken<List<StoryDto>>() {
+        }.getType();
+        return modelMapper.map(storyRepository.findAll(), listType);
     }
 
     @Override
