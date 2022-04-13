@@ -2,6 +2,7 @@ package egroup.ag.tasktracker.advice;
 
 import egroup.ag.tasktracker.constants.ErrorMessage;
 import egroup.ag.tasktracker.dto.ApiError;
+import egroup.ag.tasktracker.exception.InvalidUserInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,19 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
 
     private static final Logger LOG = LoggerFactory.getLogger(CustomExceptionResponseHandler.class);
 
+    @ExceptionHandler({InvalidUserInputException.class})
+    public ResponseEntity<Object> handleInvalidUserInputException(InvalidUserInputException ex) {
+        LOG.info("Unexpected error - {}, {}", ex.getError().getCode(), ex.getError().getMessage());
+        return new ResponseEntity<>(ex.getError(),
+                HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         LOG.info("Unexpected error - {}", ex.getMessage());
         return new ResponseEntity<>(ApiError.builder()
                 .code(ErrorMessage.UNHANDLED_EXCEPTION.getCode())
                 .message(ErrorMessage.UNHANDLED_EXCEPTION.getMessage()),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

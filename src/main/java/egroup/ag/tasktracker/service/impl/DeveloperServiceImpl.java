@@ -1,8 +1,11 @@
 package egroup.ag.tasktracker.service.impl;
 
+import egroup.ag.tasktracker.constants.ErrorMessage;
+import egroup.ag.tasktracker.dto.ApiError;
 import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
+import egroup.ag.tasktracker.exception.InvalidUserInputException;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.DeveloperService;
 import org.modelmapper.ModelMapper;
@@ -62,7 +65,10 @@ public class DeveloperServiceImpl implements DeveloperService {
             return modelMapper.map(developerRepository.save(developerEntity.get()), DeveloperDto.class);
         }
 
-        return null;
+        throw InvalidUserInputException
+                .builder()
+                .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
+                ).build();
     }
 
     @Override

@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorMessage {
-    UNHANDLED_EXCEPTION("TATR_0001", "Unhandled Exception");
+    UNHANDLED_EXCEPTION("TATR_0001", "Unhandled Exception"),
+    DEVELOPER_NOT_FOUND("TATR_0002", "Cannot find Developer with ID: %s");
 
     private final String code;
     private final String message;
