@@ -29,12 +29,12 @@ public class StoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StoryDto>> getAllStorys() {
-        List<StoryDto> developers = storyService.getAllStories();
-        if (developers.isEmpty()) {
+    public ResponseEntity<List<StoryDto>> getAllStories() {
+        List<StoryDto> stories = storyService.getAllStories();
+        if (stories.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(developers);
+        return ResponseEntity.status(HttpStatus.OK).body(stories);
     }
 
     @GetMapping("/{id}")
@@ -46,8 +46,8 @@ public class StoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<StoryDto> updateStory(@PathVariable(required = true) Long id,
-                                                @Valid @RequestBody StoryRequestModel developer) {
-        StoryDto responseStory = storyService.updateStoryById(id, developer);
+                                                @Valid @RequestBody StoryRequestModel story) {
+        StoryDto responseStory = storyService.updateStoryById(id, story);
         return ResponseEntity.status(HttpStatus.OK).body(responseStory);
     }
 

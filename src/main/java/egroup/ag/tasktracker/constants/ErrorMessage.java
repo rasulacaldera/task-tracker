@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum ErrorMessage {
     UNHANDLED_EXCEPTION("TATR_0001", "Unhandled Exception"),
     DEVELOPER_NOT_FOUND("TATR_0002", "Cannot find Developer with ID: %s"),
-    STORY_NOT_FOUND("TATR_0003", "Cannot find Story with ID: %s");
+    STORY_NOT_FOUND("TATR_0003", "Cannot find Story with ID: %s"),
+    BUG_NOT_FOUND("TATR_0004", "Cannot find Bug with ID: %s");
 
     private final String code;
     private final String message;
