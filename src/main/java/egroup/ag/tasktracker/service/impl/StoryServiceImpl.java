@@ -65,7 +65,16 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryDto getStoryById(long id) {
-        return null;
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
+        StoryDto storyDto = modelMapper.map(storyRepository.findById(id), StoryDto.class);
+        if (storyDto == null) {
+            throw InvalidUserInputException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
+                    ).build();
+        }
+        return storyDto;
     }
 
     @Override
