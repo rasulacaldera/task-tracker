@@ -11,6 +11,7 @@ import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.repository.StoryRepository;
 import egroup.ag.tasktracker.service.StoryService;
+import egroup.ag.tasktracker.utils.UpdateUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -89,7 +90,20 @@ public class StoryServiceImpl implements StoryService {
                     .error(new ApiError(ErrorMessage.STORY_NOT_FOUND, String.valueOf(id))
                     ).build();
         }
-//        storyEntity.get().setName(developer.getName());
+
+        if (story.getAssignedDeveloperId() != null) {
+            Optional<DeveloperEntity> developerDto = developerRepository.findById(story.getAssignedDeveloperId());
+            if (developerDto.isEmpty()) {
+                throw CustomServiceException
+                        .builder()
+                        .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND,
+                                String.valueOf(story.getAssignedDeveloperId()))
+                        ).build();
+            }
+            storyEntity.get().setAssignedDeveloper(developerDto.get());
+        }
+
+        UpdateUtil.copyNullProperties(story, storyEntity.get());
         return modelMapper.map(storyRepository.save(storyEntity.get()), StoryDto.class);
     }
 

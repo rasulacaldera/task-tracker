@@ -11,6 +11,7 @@ import egroup.ag.tasktracker.service.DeveloperService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -85,7 +86,13 @@ public class DeveloperServiceImpl implements DeveloperService {
                     .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND, String.valueOf(id))
                     ).build();
         }
-        developerRepository.deleteById(id);
+        try {
+            developerRepository.deleteById(id);
+        } catch (DataIntegrityViolationException ex) {
+            throw CustomServiceException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.DEVELOPER_IN_USE)).build();
+        }
     }
 
 }

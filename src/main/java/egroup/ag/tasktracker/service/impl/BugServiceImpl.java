@@ -11,6 +11,7 @@ import egroup.ag.tasktracker.exception.CustomServiceException;
 import egroup.ag.tasktracker.repository.BugRepository;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
 import egroup.ag.tasktracker.service.BugService;
+import egroup.ag.tasktracker.utils.UpdateUtil;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -88,7 +89,19 @@ public class BugServiceImpl implements BugService {
                     .error(new ApiError(ErrorMessage.BUG_NOT_FOUND, String.valueOf(id))
                     ).build();
         }
-//        storyEntity.get().setName(developer.getName());
+        if (bug.getAssignedDeveloperId() != null) {
+            Optional<DeveloperEntity> developerDto = developerRepository.findById(bug.getAssignedDeveloperId());
+            if (developerDto.isEmpty()) {
+                throw CustomServiceException
+                        .builder()
+                        .error(new ApiError(ErrorMessage.DEVELOPER_NOT_FOUND,
+                                String.valueOf(bug.getAssignedDeveloperId()))
+                        ).build();
+            }
+            bugEntity.get().setAssignedDeveloper(developerDto.get());
+        }
+
+        UpdateUtil.copyNullProperties(bug, bugEntity.get());
         return modelMapper.map(bugRepository.save(bugEntity.get()), BugDto.class);
     }
 

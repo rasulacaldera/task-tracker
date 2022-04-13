@@ -94,5 +94,4 @@ public class PlanServiceImpl implements PlanService {
                 .mapToLong(Long::longValue).sum();
 
     }
-
 }
