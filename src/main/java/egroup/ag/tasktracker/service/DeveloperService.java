@@ -1,19 +1,19 @@
 package egroup.ag.tasktracker.service;
 
-import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
+import egroup.ag.tasktracker.dto.DeveloperRequestModel;
 
 import java.util.List;
 
 public interface DeveloperService {
 
-    DeveloperDto createDeveloper(CreateDeveloperModel developer);
+    DeveloperDto createDeveloper(DeveloperRequestModel developer);
 
     List<DeveloperDto> getAllDevelopers();
 
     DeveloperDto getDeveloperById(long id);
 
-    void deleteDeveloperById(long id);
+    DeveloperDto updateDeveloperById(long id, DeveloperRequestModel developer);
 
-    DeveloperDto updateDeveloperById(long id, CreateDeveloperModel developer);
+    void deleteDeveloperById(long id);
 }

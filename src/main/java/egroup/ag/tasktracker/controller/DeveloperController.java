@@ -1,7 +1,7 @@
 package egroup.ag.tasktracker.controller;
 
-import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
+import egroup.ag.tasktracker.dto.DeveloperRequestModel;
 import egroup.ag.tasktracker.service.DeveloperService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class DeveloperController {
     }
 
     @PostMapping
-    public ResponseEntity<DeveloperDto> createDeveloper(@Valid @RequestBody CreateDeveloperModel developer) {
+    public ResponseEntity<DeveloperDto> createDeveloper(@Valid @RequestBody DeveloperRequestModel developer) {
 
         DeveloperDto responseDeveloper = developerService.createDeveloper(developer);
 
@@ -46,7 +46,7 @@ public class DeveloperController {
 
     @PutMapping("/{id}")
     public ResponseEntity<DeveloperDto> updateDeveloper(@PathVariable(required = true) Long id,
-                                                        @Valid @RequestBody CreateDeveloperModel developer) {
+                                                        @Valid @RequestBody DeveloperRequestModel developer) {
         DeveloperDto responseDeveloper = developerService.updateDeveloperById(id, developer);
         return ResponseEntity.status(HttpStatus.OK).body(responseDeveloper);
     }

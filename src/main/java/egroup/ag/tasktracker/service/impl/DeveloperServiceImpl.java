@@ -2,8 +2,8 @@ package egroup.ag.tasktracker.service.impl;
 
 import egroup.ag.tasktracker.constants.ErrorMessage;
 import egroup.ag.tasktracker.dto.ApiError;
-import egroup.ag.tasktracker.dto.CreateDeveloperModel;
 import egroup.ag.tasktracker.dto.DeveloperDto;
+import egroup.ag.tasktracker.dto.DeveloperRequestModel;
 import egroup.ag.tasktracker.entity.DeveloperEntity;
 import egroup.ag.tasktracker.exception.InvalidUserInputException;
 import egroup.ag.tasktracker.repository.DeveloperRepository;
@@ -27,7 +27,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public DeveloperDto createDeveloper(CreateDeveloperModel developer) {
+    public DeveloperDto createDeveloper(DeveloperRequestModel developer) {
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
@@ -61,7 +61,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public DeveloperDto updateDeveloperById(long id, CreateDeveloperModel developer) {
+    public DeveloperDto updateDeveloperById(long id, DeveloperRequestModel developer) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STANDARD);
 

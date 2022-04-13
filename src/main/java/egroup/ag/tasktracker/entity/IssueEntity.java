@@ -11,17 +11,13 @@ import java.util.Date;
 @Data
 public class IssueEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    private long id;
-
     @Column(nullable = false)
     private String title;
 
     @Column
     private String description;
 
-    @OneToOne
+    @ManyToOne
     private DeveloperEntity assignedDeveloper;
 
     @CreationTimestamp

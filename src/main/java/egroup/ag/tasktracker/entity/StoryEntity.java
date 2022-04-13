@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Data
 public class StoryEntity extends IssueEntity {
 
-    private long estimation;
+    private Long estimation;
 
     private StoryStatus status;
 }
