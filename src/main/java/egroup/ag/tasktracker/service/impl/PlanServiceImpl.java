@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class PlanServiceImpl implements PlanService {
 
-    private final long weeklyCapacityPerDeveloper = 10;
+    private final long DEVELOPER_CAPACITY_PER_WEEK = 10;
     private final StoryService storyService;
     private final DeveloperService developerService;
 
@@ -31,7 +31,7 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public List<WeeklyPlanDto> getPlan() {
 
-        long weeklyCapacity = weeklyCapacityPerDeveloper * developerService.getAllDevelopers().size();
+        long weeklyCapacity = DEVELOPER_CAPACITY_PER_WEEK * developerService.getAllDevelopers().size();
 
         List<StoryDto> estimatedStories = storyService.getAllStories()
                 .stream()
