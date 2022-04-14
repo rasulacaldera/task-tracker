@@ -31,7 +31,16 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public List<WeeklyPlanDto> getPlan() {
 
-        long weeklyCapacity = DEVELOPER_CAPACITY_PER_WEEK * developerService.getAllDevelopers().size();
+        long developerCount = developerService.getAllDevelopers().size();
+
+        if (developerCount == 0) {
+            throw CustomServiceException
+                    .builder()
+                    .error(new ApiError(ErrorMessage.NO_DEVELOPERS_TO_PLAN)
+                    ).build();
+        }
+
+        long weeklyCapacity = DEVELOPER_CAPACITY_PER_WEEK * developerCount;
 
         List<StoryDto> estimatedStories = storyService.getAllStories()
                 .stream()
