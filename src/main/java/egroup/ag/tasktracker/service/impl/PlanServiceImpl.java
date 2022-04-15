@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class PlanServiceImpl implements PlanService {
 
-    private final long DEVELOPER_CAPACITY_PER_WEEK = 10;
+    private static final long DEVELOPER_CAPACITY_PER_WEEK = 10;
     private final StoryService storyService;
     private final DeveloperService developerService;
 
