@@ -5,6 +5,7 @@ import egroup.ag.tasktracker.dto.ApiError;
 import egroup.ag.tasktracker.exception.CustomServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,13 @@ public class CustomExceptionResponseHandler extends ResponseEntityExceptionHandl
     public ResponseEntity<Object> handleCustomServiceException(CustomServiceException ex) {
         LOG.info("User input error - {}, {}", ex.getError().getCode(), ex.getError().getMessage());
         return new ResponseEntity<>(ex.getError(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        LOG.info("Validation failed - {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(ErrorMessage.DATA_VALIDATION_ERROR, ex.getCause().getLocalizedMessage()),
                 HttpStatus.BAD_REQUEST);
     }
 
