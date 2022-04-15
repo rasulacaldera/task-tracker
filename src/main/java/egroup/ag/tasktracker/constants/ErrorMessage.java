@@ -10,7 +10,7 @@ public enum ErrorMessage {
     BUG_NOT_FOUND("TATR_0004", "Cannot find Bug with ID: %s"),
     NO_STORIES_TO_ESTIMATE("TATR_0005", "No stories found to be estimated with current capacity : %s"),
     DEVELOPER_IN_USE("TATR_0006", "Unable to delete developer since its currently in use"),
-    NO_DEVELOPERS_TO_PLAN("TATR_0007", "No Developers available")
+    NO_DEVELOPERS_TO_PLAN("TATR_0007", "No Developers available"),
     DATA_VALIDATION_ERROR("TATR_0007", "%s");
 
     private final String code;
